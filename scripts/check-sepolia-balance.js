@@ -12,15 +12,23 @@ async function checkSepoliaBalance() {
       return;
     }
 
-    if (!process.env.INFURA_API_KEY && !process.env.SEPOLIA_RPC_URL) {
-      console.log("❌ No Sepolia RPC URL configured");
-      console.log("📝 Please add INFURA_API_KEY or SEPOLIA_RPC_URL to your .env file");
-      return;
+    // Determine RPC URL with fallback options
+    let rpcUrl = process.env.SEPOLIA_RPC_URL;
+    
+    if (!rpcUrl) {
+      if (process.env.ALCHEMY_API_KEY) {
+        rpcUrl = `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`;
+        console.log("🔗 Using Alchemy RPC provider");
+      } else if (process.env.INFURA_API_KEY) {
+        rpcUrl = `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`;
+        console.log("🔗 Using Infura RPC provider");
+      } else {
+        rpcUrl = "https://rpc.ankr.com/eth_sepolia";
+        console.log("🔗 Using public Ankr RPC provider (limited rate)");
+      }
+    } else {
+      console.log("🔗 Using custom RPC URL");
     }
-
-    // Create provider for Sepolia
-    const rpcUrl = process.env.SEPOLIA_RPC_URL || 
-                   `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`;
     
     const provider = new ethers.JsonRpcProvider(rpcUrl);
     
