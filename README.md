@@ -121,12 +121,17 @@ For Sepolia testnet deployment, you'll need:
    npm run sepolia-setup
    ```
 
-5. **Check Sepolia Balance**:
+5. **Sepolia Infura Setup** (Recommended):
+   ```bash
+   npm run sepolia-infura
+   ```
+
+6. **Check Sepolia Balance**:
    ```bash
    npm run check-sepolia
    ```
 
-6. **Deploy to Sepolia**:
+7. **Deploy to Sepolia**:
    ```bash
    npm run deploy:sepolia
    ```

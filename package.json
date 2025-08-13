@@ -7,6 +7,7 @@
     "check-env": "node scripts/check-env.js",
     "rpc-setup": "node scripts/rpc-setup.js",
     "sepolia-setup": "node scripts/sepolia-setup.js",
+    "sepolia-infura": "node scripts/sepolia-infura-setup.js",
     "check-sepolia": "node scripts/check-sepolia-balance.js",
     "compile": "hardhat compile",
     "test": "hardhat test",

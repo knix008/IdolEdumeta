@@ -12,16 +12,13 @@ async function checkSepoliaBalance() {
       return;
     }
 
-    // Determine RPC URL with fallback options
+    // Determine RPC URL with Sepolia Infura priority
     let rpcUrl = process.env.SEPOLIA_RPC_URL;
     
     if (!rpcUrl) {
-      if (process.env.ALCHEMY_API_KEY) {
-        rpcUrl = `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`;
-        console.log("🔗 Using Alchemy RPC provider");
-      } else if (process.env.INFURA_API_KEY) {
+      if (process.env.INFURA_API_KEY) {
         rpcUrl = `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`;
-        console.log("🔗 Using Infura RPC provider");
+        console.log("🔗 Using Sepolia Infura RPC provider");
       } else {
         rpcUrl = "https://rpc.ankr.com/eth_sepolia";
         console.log("🔗 Using public Ankr RPC provider (limited rate)");
