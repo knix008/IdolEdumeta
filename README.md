@@ -105,21 +105,28 @@ For Sepolia testnet deployment, you'll need:
    - [Infura Sepolia Faucet](https://www.infura.io/faucet/sepolia)
    - [Chainlink Faucet](https://faucets.chain.link/sepolia)
 
-2. **API Keys**:
-   - [Infura API Key](https://infura.io/) (for RPC endpoint)
+2. **API Keys** (choose one RPC provider):
+   - [Infura API Key](https://infura.io/) (most popular)
+   - [Alchemy API Key](https://alchemy.com/) (developer friendly)
+   - [QuickNode](https://quicknode.com/) (high performance)
    - [Etherscan API Key](https://etherscan.io/) (for contract verification)
 
-3. **Setup Guide**:
+3. **RPC Provider Setup**:
+   ```bash
+   npm run rpc-setup
+   ```
+
+4. **Sepolia Setup Guide**:
    ```bash
    npm run sepolia-setup
    ```
 
-4. **Check Sepolia Balance**:
+5. **Check Sepolia Balance**:
    ```bash
    npm run check-sepolia
    ```
 
-5. **Deploy to Sepolia**:
+6. **Deploy to Sepolia**:
    ```bash
    npm run deploy:sepolia
    ```
