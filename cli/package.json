@@ -1,0 +1,36 @@
+{
+  "name": "edumeta-cli",
+  "version": "1.0.0",
+  "description": "CLI scripts for interacting with EduMeta smart contract",
+  "main": "index.js",
+  "scripts": {
+    "setup": "node setup-env.js",
+    "send": "node send-tokens.js",
+    "receive": "node check-balance.js",
+    "mint": "node mint-tokens.js",
+    "burn": "node burn-tokens.js",
+    "approve": "node approve-tokens.js",
+    "transfer-from": "node transfer-from.js",
+    "pause": "node pause-contract.js",
+    "unpause": "node unpause-contract.js",
+    "info": "node token-info.js",
+    "history": "node transaction-history.js",
+    "help": "node help.js"
+  },
+  "dependencies": {
+    "ethers": "^6.8.1",
+    "dotenv": "^16.3.1",
+    "commander": "^11.1.0",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.6"
+  },
+  "keywords": [
+    "ethereum",
+    "smart-contract",
+    "erc20",
+    "cli",
+    "blockchain"
+  ],
+  "author": "EduMeta Team",
+  "license": "MIT"
+}
