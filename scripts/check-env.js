@@ -1,6 +1,7 @@
-require("dotenv").config();
 
-function checkEnvironment() {
+import 'dotenv/config';
+
+export function checkEnvironment() {
   console.log("🔍 Checking environment configuration...\n");
 
   const requiredVars = [
@@ -60,8 +61,7 @@ function checkEnvironment() {
   return allGood;
 }
 
-if (require.main === module) {
+
+if (import.meta.url === process.argv[1] || import.meta.url === `file://${process.argv[1]}`) {
   checkEnvironment();
 }
-
-module.exports = { checkEnvironment };

@@ -1,8 +1,8 @@
-import "@nomicfoundation/hardhat-toolbox";
-import "dotenv/config";
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv/config");
 
 /** @type import('hardhat/config').HardhatUserConfig */
-export default {
+module.exports = {
   solidity: {
     version: "0.8.27",
     settings: {
@@ -21,9 +21,9 @@ export default {
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
     },
     sepolia: {
-      url: process.env.SEPOLIA_RPC_URL || 
-           (process.env.INFURA_API_KEY ? `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}` : null) ||
-           "https://rpc.ankr.com/eth_sepolia", // Fallback to public RPC
+      url: process.env.SEPOLIA_RPC_URL ||
+        (process.env.INFURA_API_KEY ? `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}` : null) ||
+        "https://rpc.ankr.com/eth_sepolia", // Fallback to public RPC
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 11155111,
     },

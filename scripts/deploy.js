@@ -1,5 +1,5 @@
 const { ethers } = require("hardhat");
-require("dotenv").config();
+require('dotenv').config();
 
 async function main() {
   console.log("Deploying EduMeta token...");
