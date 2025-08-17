@@ -1,6 +1,5 @@
-import { expect } from "chai";
-import pkg from "hardhat";
-const { ethers } = pkg;
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
 
 describe("EduMeta Token", function () {
   let EduMeta;
