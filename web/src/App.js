@@ -11,11 +11,13 @@ import TransactionHistory from './components/TransactionHistory';
 import TokenTransfer from './components/TokenTransfer';
 import AdvancedFeatures from './components/AdvancedFeatures';
 
-const CONTRACT_ADDRESS = process.env.REACT_APP_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000'; // Update with deployed address
+const CONTRACT_ADDRESS = process.env.REACT_APP_CONTRACT_ADDRESS; // Update with deployed address
 // Network ID for Sepolia testnet (used for network validation)
 const NETWORK_ID = 11155111;
 
 function App() {
+  const [networkError, setNetworkError] = useState("");
+  const [ethereumProvider, setEthereumProvider] = useState(null);
   const [account, setAccount] = useState('');
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
@@ -40,7 +42,7 @@ function App() {
       if (ethereumProvider) {
         const provider = new ethers.BrowserProvider(ethereumProvider);
         setProvider(provider);
-        
+
         // Listen for account changes
         ethereumProvider.on('accountsChanged', (accounts) => {
           setAccount(accounts[0] || '');
@@ -160,7 +162,7 @@ function App() {
       const amountWei = ethers.parseEther(amount);
       const tx = await contract.burn(amountWei);
       await tx.wait();
-      
+
       alert('Burning successful!');
       setAmount('');
       await updateContractData(contract, account);
@@ -180,6 +182,7 @@ function App() {
       </header>
 
       <main className="App-main">
+  {/* Network error UI removed */}
         {!account ? (
           <div className="connect-section">
             <h2>Connect Your Wallet</h2>
