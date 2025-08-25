@@ -36,7 +36,7 @@ You'll need API keys for RPC endpoints and contract verification:
    PRIVATE_KEY=your_wallet_private_key_here
    INFURA_API_KEY=your_infura_api_key_here
    ETHERSCAN_API_KEY=your_etherscan_api_key_here
-   
+
    # Optional: Alternative RPC providers
    ALCHEMY_API_KEY=your_alchemy_api_key_here
    SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/your_infura_api_key

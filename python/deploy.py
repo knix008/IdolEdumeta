@@ -19,55 +19,48 @@ load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 NETWORK_NAME = os.getenv("NETWORK_NAME", "localhost").lower()
 PRIVATE_KEY = os.getenv("PRIVATE_KEY")
 ACCOUNT_ADDRESS = os.getenv("ACCOUNT_ADDRESS")
-INFURA_API_KEY = os.getenv("INFURA_API_KEY")
-GAS_LIMIT = int(os.getenv("GAS_LIMIT", 3000000))
-GAS_PRICE = int(os.getenv("GAS_PRICE", 20000000000))
+
 
 CONTRACT_PATH = os.path.join(
     os.path.dirname(__file__), "../Contracts/EduMetaCoinErc20.sol"
 )
-ARTIFACTS_DIR = os.path.join(os.path.dirname(__file__), "artifacts")
-os.makedirs(ARTIFACTS_DIR, exist_ok=True)
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-REMAPPINGS = ["@openzeppelin/={}/node_modules/@openzeppelin/".format(PROJECT_ROOT)]
 
-# Set up RPC URLs
-RPC_URLS = {
-    "localhost": "http://127.0.0.1:8545",
-    "sepolia": (
-        f"https://sepolia.infura.io/v3/{INFURA_API_KEY}" if INFURA_API_KEY else ""
-    ),
-    "mainnet": (
-        f"https://mainnet.infura.io/v3/{INFURA_API_KEY}" if INFURA_API_KEY else ""
-    ),
-}
+# Use RPC_URL from .env
+RPC_URL = os.getenv("RPC_URL")
+if not RPC_URL:
+    raise Exception("RPC_URL is not set in the .env file.")
 
-if NETWORK_NAME not in RPC_URLS or not RPC_URLS[NETWORK_NAME]:
-    raise Exception(f"No RPC URL configured for network: {NETWORK_NAME}")
-
-
-
-artifact_path = os.path.join(ARTIFACTS_DIR, 'EduMeta.json')
-with open(artifact_path, 'r') as f:
+# Update artifact path to match artifacts/contracts/EduMetaCoinErc20.sol/EduMeta.json
+ARTIFACT_PATH = os.path.join(
+    os.path.dirname(__file__),
+    "artifacts",
+    "contracts",
+    "EduMetaCoinErc20.sol",
+    "EduMeta.json",
+)
+with open(ARTIFACT_PATH, "r") as f:
     contract_json = json.load(f)
-abi = contract_json['abi']
-bytecode = contract_json['bytecode']
+abi = contract_json["abi"]
+bytecode = contract_json["bytecode"]
 
 
 # Connect to Web3
-w3 = Web3(Web3.HTTPProvider(RPC_URLS[NETWORK_NAME]))
+w3 = Web3(Web3.HTTPProvider(RPC_URL))
 if not w3.is_connected():
-    raise Exception(
-        f"Failed to connect to {NETWORK_NAME} RPC at {RPC_URLS[NETWORK_NAME]}"
-    )
+    raise Exception(f"Failed to connect to RPC at {RPC_URL}")
 
 # Prepare contract deployment
 contract = w3.eth.contract(abi=abi, bytecode=bytecode)
 nonce = w3.eth.get_transaction_count(ACCOUNT_ADDRESS)
 
 # TODO: Update the following line with the correct constructor arguments if needed
-transaction = contract.constructor(ACCOUNT_ADDRESS).build_transaction({
-    "from": ACCOUNT_ADDRESS, "nonce": nonce, "gas": GAS_LIMIT, "gasPrice": GAS_PRICE}
+transaction = contract.constructor(ACCOUNT_ADDRESS).build_transaction(
+    {
+        "from": ACCOUNT_ADDRESS,
+        "nonce": nonce,
+        "gas": int(os.getenv("GAS_LIMIT", 3000000)),
+        "gasPrice": int(os.getenv("GAS_PRICE", 20000000000)),
+    }
 )
 
 # Sign and send transaction
